@@ -1,6 +1,56 @@
+<!-- Filtros -->
+<div style="margin-bottom: 20px;">
+  <label>
+    Desde: <input type="date" [(ngModel)]="startDate">
+  </label>
+  <label style="margin-left: 10px;">
+    Hasta: <input type="date" [(ngModel)]="endDate">
+  </label>
+  <button mat-raised-button color="primary" style="margin-left: 10px;" (click)="applyFilters()">Aplicar</button>
+</div>
 
+<!-- KPIs -->
+<div style="display:flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+  <mat-card style="flex:1">
+    <strong>Ventas Totales:</strong> {{ totalSales | currency:'USD' }}
+  </mat-card>
+  <mat-card style="flex:1">
+    <strong>Número de Órdenes:</strong> {{ totalOrders }}
+  </mat-card>
+  <mat-card style="flex:1">
+    <strong>Ticket Promedio:</strong> {{ avgTicket | currency:'USD' }}
+  </mat-card>
+</div>
 
-<h1>Dashboard works !!</h1>
-<!-- Aquí van tus KPIs o gráficos -->
+<hr>
+<!-- Gráficos -->
+<div style="display:flex; flex-wrap:wrap; gap:20px;">
+  <div style="flex:1; min-width:300px;">
+    <h3>Ventas por día</h3>
+    <canvas baseChart
+      [data]="salesChartData"
+      [options]="salesChartOptions"
+      [type]="salesChartType">
+    </canvas>
+  </div>
+
+  <div style="flex:1; min-width:300px;">
+    <h3>Top 5 Productos</h3>
+    <canvas baseChart
+      [data]="topProductsChartData"
+      [options]="salesChartOptions"
+      [type]="topProductsChartType">
+    </canvas>
+  </div>
+
+  <div style="flex:1; min-width:300px;">
+    <h3>Métodos de Pago</h3>
+    <canvas baseChart
+      [data]="paymentChartData"
+      [options]="salesChartOptions"
+      [type]="paymentChartType">
+    </canvas>
+  </div>
+</div>
+
 <router-outlet></router-outlet>
-

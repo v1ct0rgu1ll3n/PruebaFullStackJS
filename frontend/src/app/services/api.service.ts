@@ -25,6 +25,12 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/orders?page=${page}&pageSize=${pageSize}`, { headers: this.getAuthHeaders() });
   }
 
+  getDashboard(start?: string, end?: string) {
+    let url = `${this.baseUrl}/dashboard`;
+    if (start && end) url += `?start=${start}&end=${end}`;
+    return this.http.get(url, { headers: this.getAuthHeaders() });
+  }
+
 
   login(email: string, password: string) {
     return this.http.post(`${this.baseUrl}/auth/login`, { email, password });
