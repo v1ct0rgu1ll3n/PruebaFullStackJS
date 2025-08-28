@@ -8,6 +8,9 @@ import dashboardRoutes from './modules/dashboard/dashboard.routes';
 // ... importar otras rutas
 import { errorHandler } from './middleware/error';
 import productRoutes from './modules/products/products.routes';
+import usersRoutes from './modules/users/users.routes'; 
+import customersRoutes from './modules/customers/customers.routes';
+import ordersRoutes from './modules/orders/orders.routes';
 
 const app = express();
 app.use(helmet());
@@ -21,7 +24,14 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
 // app.use('/api/v1/orders', ordersRoutes) // opcional mostrar algunos
 app.use('/api/v1/products', productRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/v1/customers', customersRoutes);
+app.use('/api/v1/orders', ordersRoutes);
 
 app.use(errorHandler);
+
+app.listen(3000, () => {
+  console.log('🚀 Servidor corriendo en http://localhost:3000');
+});
 
 export default app;
