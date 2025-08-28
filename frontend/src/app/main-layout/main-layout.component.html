@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <button mat-button routerLink="/dashboard">Dashboard</button>
+  <button mat-button routerLink="/customers">Clientes</button>
+  <button mat-button routerLink="/products">Productos</button>
+  <button mat-button routerLink="/orders">Órdenes</button>
+  <span style="flex:1 1 auto"></span>
+  <button mat-button (click)="logout()">Cerrar sesión</button>
+</mat-toolbar>
+
+<div style="padding: 16px;">
+  <router-outlet></router-outlet>
+</div>

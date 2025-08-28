@@ -1,0 +1,6 @@
+<h2>Login</h2>
+<form (submit)="login($event)">
+  <input type="text" placeholder="Usuario" [(ngModel)]="email" name="username" required />
+  <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required />
+  <button type="submit">Ingresar</button>
+</form>
