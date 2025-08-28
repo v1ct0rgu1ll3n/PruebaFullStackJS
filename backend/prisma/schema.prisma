@@ -1,0 +1,60 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model users {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password_hash String
+  role         String   @default("user")
+  created_at   DateTime @default(now())
+  orders       orders[]
+}
+
+model customers {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  created_at DateTime @default(now())
+  orders     orders[]
+}
+
+model products {
+  id       Int     @id @default(autoincrement())
+  name     String
+  sku      String  @unique
+  price    Decimal @db.Decimal(10,2)
+  category String
+  order_items order_items[]
+}
+
+model orders {
+  id              Int       @id @default(autoincrement())
+  customer_id     Int
+  order_date      DateTime  @default(now())
+  status          String
+  payment_method  String
+  total_amount    Decimal   @db.Decimal(10,2)
+  customer        customers @relation(fields: [customer_id], references: [id])
+  items           order_items[]
+  user_id         Int?      // opcional si quieres auditar
+  user            users?    @relation(fields: [user_id], references: [id])
+  @@index([order_date])
+  @@index([status])
+  @@index([payment_method])
+}
+
+model order_items {
+  id         Int      @id @default(autoincrement())
+  order_id   Int
+  product_id Int
+  quantity   Int
+  unit_price Decimal  @db.Decimal(10,2)
+  order      orders   @relation(fields: [order_id], references: [id])
+  product    products @relation(fields: [product_id], references: [id])
+}
